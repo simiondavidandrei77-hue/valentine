@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>💖</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+-webkit-tap-highlight-color: transparent;
+font-family:'Segoe UI',system-ui;
+}
+
+body{
+height:100vh;
+background:linear-gradient(180deg,#ffd6e0,#ff8fab,#ff4d6d);
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+}
+
+/* ===== CARD PHONE STYLE ===== */
+
+.card{
+width:100%;
+max-width:420px;
+height:100vh;
+padding:18px 18px 28px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:flex-start;
+text-align:center;
+}
+
+/* TITLU */
+.title{
+margin-top:10px;
+color:white;
+font-size:30px;
+font-weight:700;
+text-shadow:0 4px 18px rgba(0,0,0,0.25);
+}
+
+/* ===== POZA PERFECT PENTRU TELEFON ===== */
+
+.photo-frame{
+margin-top:18px;
+width:92%;
+height:52vh;
+border-radius:28px;
+overflow:hidden;
+position:relative;
+box-shadow:0 18px 50px rgba(0,0,0,0.35);
+}
+
+.photo-frame img{
+width:100%;
+height:100%;
+object-fit:cover;
+object-position:center 35%;
+}
+
+/* ===== BUTTONS ===== */
+
+.buttons{
+margin-top:auto;
+width:100%;
+display:flex;
+justify-content:space-between;
+gap:16px;
+padding-bottom:10px;
+}
+
+button{
+flex:1;
+padding:18px 0;
+font-size:22px;
+border:none;
+border-radius:22px;
+font-weight:700;
+cursor:pointer;
+transition:0.25s;
+}
+
+/* DA */
+#yesBtn{
+background:#ff2e63;
+color:white;
+box-shadow:0 10px 30px rgba(255,0,80,0.6);
+}
+
+#yesBtn:active{
+transform:scale(1.05);
+}
+
+/* NU */
+#noBtn{
+background:white;
+color:#ff2e63;
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* MESSAGE */
+#message{
+height:40px;
+margin-top:10px;
+color:white;
+font-weight:600;
+font-size:18px;
+}
+
+/* HEARTS */
+
+.heart{
+position:fixed;
+bottom:-20px;
+width:16px;
+height:16px;
+background:#ff1e56;
+transform:rotate(45deg);
+animation:floatUp linear forwards;
+z-index:0;
+}
+
+.heart::before,
+.heart::after{
+content:"";
+position:absolute;
+width:16px;
+height:16px;
+background:#ff1e56;
+border-radius:50%;
+}
+
+.heart::before{top:-8px;left:0;}
+.heart::after{left:-8px;top:0;}
+
+@keyframes floatUp{
+to{
+transform:translateY(-110vh) rotate(45deg);
+opacity:0;
+}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="title">Vrei sa fii Valentines-ul meu? 💌</div>
+
+<div class="photo-frame">
+<img src="pozaianii.jpg">
+</div>
+
+<div id="message"></div>
+
+<div class="buttons">
+<button id="yesBtn">DA 💖</button>
+<button id="noBtn">NU</button>
+</div>
+
+</div>
+
+<script>
+
+let noCount=0;
+let scale=1;
+
+const texts=[
+"Esti sigura? 🥺",
+"Mai gandeste-te...",
+"Hmm...",
+"Chiar asta alegi?",
+"Incearca iar 😅",
+"Raspuns gresit",
+"Nu cred...",
+"Mai apasa o data",
+"Ultima sansa..."
+];
+
+const yesBtn=document.getElementById("yesBtn");
+const noBtn=document.getElementById("noBtn");
+const message=document.getElementById("message");
+
+noBtn.addEventListener("click",()=>{
+
+noCount++;
+message.innerText=texts[(noCount-1)%texts.length];
+
+scale+=0.15;
+yesBtn.style.transform=`scale(${scale})`;
+
+let x=(Math.random()*60)-30;
+let y=(Math.random()*20)-10;
+noBtn.style.transform=`translate(${x}px,${y}px)`;
+
+});
+
+/* FINAL SCREEN */
+yesBtn.addEventListener("click",()=>{
+
+document.body.innerHTML=`
+<div style="
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+background:linear-gradient(180deg,#ff8fab,#ff4d6d);
+color:white;
+text-align:center;
+padding:30px;
+">
+
+<h1 style="font-size:50px;margin-bottom:20px;">YAAAY 💖</h1>
+<h2 style="font-size:26px;">Acum oficial esti Valentines-ul meu!</h2>
+<h3 style="margin-top:20px;font-size:20px;">TE IUBESC 🌹</h3>
+
+</div>`;
+
+});
+
+/* hearts */
+function createHeart(){
+const heart=document.createElement("div");
+heart.className="heart";
+heart.style.left=Math.random()*100+"vw";
+heart.style.animationDuration=(4+Math.random()*4)+"s";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),8000);
+}
+
+setInterval(createHeart,280);
+
+</script>
+
+</body>
+</html>
